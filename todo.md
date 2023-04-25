@@ -1,5 +1,4 @@
 Next steps:
-1. Test to ensure the extension has access to chat.openai.com
 2. Compile list of messages for each of the other chat sessions as well
 3. Then search through all the messages inside the all_chats
 4. Publish to store
