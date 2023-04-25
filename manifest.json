@@ -1,7 +1,17 @@
 {
     "name": "ChatGPT Search",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "A Firefox add-on that allows you to search through all of your ChatGPT conversations.",
-    "permissions": ["tabs", "storage", "https://chat.openai.com/"],
+    "permissions": ["tabs", "storage", "activeTab", "https://chat.openai.com/*"],
+    "content_scripts": [
+        {
+          "matches": ["https://chat.openai.com/*"],
+          "js": ["content_script.js"]
+        }
+      ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
     "manifest_version": 2
 }
