@@ -1,5 +1,5 @@
 // window.onload = function() {
-//   // alert("success! it does load the content script");
+//   alert("success! it does load the content script");
 //   // console.log("and properly logs to the window console");
 // }
 
@@ -11,8 +11,13 @@
   const chatInput = await waitFor('div.border-b');
   // alert(document.documentElement.outerHTML);
   let currentChat = getCurrentChat();
-  var all_chats = []
-  all_chats.push(getCurrentChat());
+
+  var allChats = []
+  allChats.push(getCurrentChat());
+
+  clickShowMoreButton(); clickShowMoreButton(); clickShowMoreButton();
+  alert("clicked show more button");
+  clickLinks();
   console.log(currentChat);
 })();
 
@@ -32,6 +37,50 @@ function waitFor(selector) {
     }, 100);
   });
 }
+
+/**
+ * Clicks on the "Show more" button to display additional conversations.
+ * Allows you search through up to the most recent 40 conversations.
+ */
+function clickShowMoreButton() {
+  const buttons = document.querySelectorAll('.btn');
+  let showMoreButton = null;
+
+  for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].textContent.trim() === 'Show more') {
+      showMoreButton = buttons[i];
+      break;
+    }
+  }
+
+  if (showMoreButton) {
+    showMoreButton.click();
+  }
+}
+
+/**
+ * Clicks on each link in the chatLinks array with a delay of 2 seconds
+ * So you can save the history of each chat
+ * Eventually change it so it waitsFor
+ * each chat to load and get saved, and then clicks on the next link after the Promise is resolved
+ * @function clickLinks
+ * @returns {void}
+ */
+function clickLinks() {
+  // not(.underline) removes "/en/articles/6825453-chatgpt-release-notes"
+  const chatLinks = document.querySelectorAll(".flex a:not(.underline)");
+  let i = 1; // Start at index 1 to skip the "New Chat" button
+  const interval = setInterval(() => {
+    if (i >= chatLinks.length) {
+      clearInterval(interval);
+      return;
+    }
+    // console.log(chatLinks[i]);
+    chatLinks[i].click();
+    i++;
+  }, 1500); // 1.5 second delay
+}
+
 
 /**
  * Retrieves the current chat messages from the webpage.
