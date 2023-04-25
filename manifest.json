@@ -1,0 +1,7 @@
+{
+"name": "ChatGPT Search",
+"version": "1.0",
+"description": "A Firefox add-on that allows you to search through all of your ChatGPT conversations.",
+"permissions": ["tabs", "storage"],
+"manifest_version": 2
+}

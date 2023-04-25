@@ -1,0 +1,11 @@
+.search-input {
+  width: 100%;
+}
+
+.results-list {
+  list-style-type: none;
+}
+
+.results-list li {
+  padding: 10px;
+}
