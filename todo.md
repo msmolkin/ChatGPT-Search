@@ -6,7 +6,7 @@ Next steps:
 ---
 
 Manifest.json things that I might need to edit:
-1. add when I make an icon
+1. add when I make an icon (https://deepai.org/machine-learning-model/text2img)
 ```
 "icons": {
   "48": "icons/icon48.png",
