@@ -41,3 +41,29 @@ same with content_script.js
         }
       ],
 ```
+
+---
+
+So it did open google.com once. Does that mean it's gonna click on every link?
+Save the original url, so it opens that back after gathering the archived chats (it currently leaves it on the last chat)
+Even better: search through those chats in an iframe rather than the browser
+Ideally, figure out how to save the archive in a hard drive rather than in cache, so it doesn’t have to rebuild every time (in the search window: “currently searching all chats before Monday, May 23, 2023 at 9:00 PM PT. Would you like to update the index?”)
+
+#line83todo: Make sure I've backed up everything that I needed to before this happens, or figure out another way get back to the original URL (e.g. figure out which chat is highlighted before running clickLinks and then click on that link again, rather than saving the URL and navigating to it)
+
+---
+
+when adding an icon/png:
+    "browser_action": {
+      "default_icon": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      },
+
+---
+
+In popup.js:
+clicking on rebuild index should run a function that generates an index of history that you'l search through
+clicking on search should provide you with a list of chats that this search term is found in, along with 2 words (or two lines) of context (like `grep -C 2` does)
