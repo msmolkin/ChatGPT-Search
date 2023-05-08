@@ -10,10 +10,6 @@
 //   })
 //   .catch((error) => console.error(error));
 
-// TODO: delete this function
-// temp console.log and function to ensure that this script is loading
-// console.log("popup.js loaded");
-// works:
 document.addEventListener("DOMContentLoaded", function () {
   var rebuildBtn = document.getElementById("rebuild");
 
@@ -26,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function generateIndex() {
     const allChats = await browser.tabs.executeScript({
-      file: "content_script.js"
+      code: "generateSearchIndexContentScript"
     });
 
     browser.storage.local.set({ searchIndex: allChats });
@@ -44,27 +40,34 @@ function searchHistory(searchTerm) {
 }
 
 async function generateSearchIndexContentScript() {
-    const chatInput = await waitFor('div.border-b');
+    // const chatInput = await waitFor('div.border-b');
     // alert(document.documentElement.outerHTML);
     let currentChat = getCurrentChat();
 
     var allChats = [];
 
-    // I only promise we're searching through the most recent 20 chats, so overdelivering anyway
-    clickShowMoreButton(); clickShowMoreButton(); clickShowMoreButton(); // Open all chats, up to 20 + 3*20 = 80 (if you have over 80 chats...)
 
-    const currentUrl = await browser.tabs.query({active: true, currentWindow: true}).then(tabs => tabs[0].url);
-    allChats.originalURL = currentUrl.startsWith("https://chat.openai.com/c/") ? currentUrl : null;
-    if (allChats.originalURL == null) {
-        window.location.href = "https://chat.openai.com/";
-    }
-    console.log(allChats.originalURL)
 
-    clickLinksAndSaveHistory();
-    // window.location.href = allChats.originalURL; // navigate back to original URL // TODO@me CAUTION: This will probably end up reloading the page, deleting any temporary javascript. see #line83todo
-    console.log(currentChat);
+const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+const chatInput = await browser.tabs.executeScript(tab.id, { code: "document.querySelector('div.border-b')" });
+console.log(chatInput);
+return chatInput;
 
-    return allChats;
+    // // I only promise we're searching through the most recent 20 chats, so overdelivering anyway
+    // clickShowMoreButton(); clickShowMoreButton(); clickShowMoreButton(); // Open all chats, up to 20 + 3*20 = 80 (if you have over 80 chats...)
+
+    // const currentUrl = await browser.tabs.query({active: true, currentWindow: true}).then(tabs => tabs[0].url);
+    // allChats.originalURL = currentUrl.startsWith("https://chat.openai.com/c/") ? currentUrl : null;
+    // if (allChats.originalURL == null) {
+    //     window.location.href = "https://chat.openai.com/";
+    // }
+    // console.log(allChats.originalURL)
+
+    // clickLinksAndSaveHistory();
+    // // window.location.href = allChats.originalURL; // navigate back to original URL // TODO@me CAUTION: This will probably end up reloading the page, deleting any temporary javascript. see #line83todo
+    // console.log(currentChat);
+
+    // return allChats;
   }
 
 document.getElementById("searchBtn").addEventListener("click", function () {
@@ -131,4 +134,4 @@ async function generateSearchIndexContentScript() {
   return allChats;
 }
 
-console.log(allChats);
+// console.log(allChats);
