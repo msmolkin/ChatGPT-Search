@@ -1,7 +1,6 @@
-// // window.onload = function() {
-// //   alert("success! it does load the content script");
-// //   // console.log("and properly logs to the window console");
-// // }
+// Author: Michael Smolkin
+// Date: 2023-05-08
+// License: MIT
 
 // /**
 //  * Waits until the chat loads, then adds the current chat

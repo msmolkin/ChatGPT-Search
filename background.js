@@ -1,3 +1,7 @@
+// Author: Michael Smolkin
+// Date: 2023-05-08
+// License: MIT
+
 window.onload = function () {
     console.log("background works, but it loads on its own separate page (Inspect add-on to see console.logs).");
     // unnecessary file. can delete this file and remove it from manifest.json
